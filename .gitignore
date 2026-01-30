@@ -1,2 +1,4 @@
 node_modules
 garrrss-server.pem
+.env
+.prod.env
