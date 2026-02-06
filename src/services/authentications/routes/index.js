@@ -1,12 +1,32 @@
 import { Router } from 'express';
-import notes from '../services/notes/routes/index.js';
-import users from '../services/users/routes/index.js';
-import authentications from '../services/authentications/routes/index.js';
+import {
+  login,
+  refreshToken,
+  logout,
+} from '../controller/authentication-controller.js';
+import validate from '../../../middlewares/validate.js';
+import {
+  postAuthenticationPayloadSchema,
+  putAuthenticationPayloadSchema,
+  deleteAuthenticationPayloadSchema,
+} from '../validator/schema.js';
 
 const router = Router();
 
-router.use('/', notes);
-router.use('/', users);
-router.use('/', authentications);
+router.post(
+  '/authentications',
+  validate(postAuthenticationPayloadSchema),
+  login,
+);
+router.put(
+  '/authentications',
+  validate(putAuthenticationPayloadSchema),
+  refreshToken,
+);
+router.delete(
+  '/authentications',
+  validate(deleteAuthenticationPayloadSchema),
+  logout,
+);
 
 export default router;

@@ -1,5 +1,5 @@
-import response from '../utils/response';
-import TokenManager from '../security/token-manager';
+import response from '../utils/response.js';
+import TokenManager from '../security/token-manager.js';
 
 async function authenticateToken(req, res, next) {
   const token = req.headers.authorization;
@@ -9,11 +9,11 @@ async function authenticateToken(req, res, next) {
       req.user = user;
       return next();
     } catch (error) {
-      return response(response, 401, error.message, null);
+      return response(res, 401, error.message, null);
     }
   }
 
-  return response(response, 401, 'Unauthorized', null);
+  return response(res, 401, 'Unauthorized', null);
 };
 
 export default authenticateToken;
